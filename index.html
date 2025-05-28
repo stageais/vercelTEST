@@ -1,39 +1,57 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Multi-Link</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Multi-Link | 🔻ОДЕЖДЫ.NET🔺</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Облака -->
-  <div class="cloud cloud1"></div>
-  <div class="cloud cloud2"></div>
-  <div class="cloud cloud3"></div>
+
+  <!-- МНОГО ОБЛАКОВ С ПАРАЛЛАКСОМ -->
+  <div class="cloud cloud--small"></div>
+  <div class="cloud cloud--medium"></div>
+  <div class="cloud cloud--large"></div>
+  <div class="cloud cloud--xlarge"></div>
+
+  <!-- ЛЕТАЮЩИЕ СЕРДЕЧКИ -->
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
+  <div class="heart"></div>
 
   <div class="container">
     <header>
-      <!-- Название генерируется ботом -->
-      <img src="%%LOGO%%" class="logo" alt="Логотип">
-      <h1>%%TITLE%%</h1>
+      <img src="logo.jpg" class="logo" alt="Логотип"/>
+      <h1>🔻ОДЕЖДЫ.NET🔺</h1>
       <p>ВСЕГДА АКТУАЛЬНЫЕ ССЫЛКИ</p>
-      <div class="arrow-down">↓</div>
+      <div class="arrow">↓</div>
     </header>
 
-    <a class="link-button" href="%%LINK1%%" target="_blank">
-      <span class="icon">➔</span><span class="text">Основной бот</span>
+    <!-- Основная кнопка с бликом -->
+    <a href="https://t.me/odzhdaest_bot" class="link-button primary" target="_blank">
+      <div class="shine"></div>
+      <img src="logo.jpg" class="btn-icon" alt="Лого бота"/>
+      <span class="btn-text">Основной бот</span>
     </a>
-    <a class="link-button" href="%%LINK2%%" target="_blank">
-      <span class="icon">➔➔</span><span class="text">Резервный бот</span>
+
+    <!-- Резервная кнопка без блика -->
+    <a href="https://t.me/odezhdatytbot" class="link-button" target="_blank">
+      <img src="logo.jpg" class="btn-icon" alt="Лого резервного бота"/>
+      <span class="btn-text">Резервный бот</span>
     </a>
-    <a class="link-button" href="%%LINK3%%" target="_blank">
-      <span class="icon">📡</span><span class="text">Канал</span>
+
+    <!-- Кнопка канала без блика -->
+    <a href="https://t.me/odzhdadom" class="link-button" target="_blank">
+      <img src="logo.jpg" class="btn-icon" alt="Лого канала"/>
+      <span class="btn-text">Канал</span>
     </a>
 
     <footer>
       <p>Сайт сгенерирован ботом</p>
     </footer>
   </div>
+
 </body>
 </html>
