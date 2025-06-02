@@ -4,26 +4,29 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Save you link</title>
-  <!-- Подключаем общий файл стилей -->
-  <link href="{{ url_for('static', path='css/style.css') }}" rel="stylesheet" type="text/css">
+  <!-- Подключаем CSS (оставляем Jinja2-конструкцию, как было) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
 <body class="index-body">
   <div class="index-container">
-    <!-- Логотип (замените logo.png на реальный файл в /static/) -->
-    <img src="{{ url_for('static', path='images/logo.png') }}" alt="Логотип" class="index-logo">
+    <!-- Логотип -->
+    <img
+      src="{{ url_for('static', filename='images/logo.png') }}"
+      alt="Логотип"
+      class="index-logo"
+    />
 
     <!-- Заголовок главной страницы -->
     <h1 class="index-title">Save you link</h1>
     <p class="index-subtitle">Наш сервис находится на этапе прототипирования</p>
 
-    <!-- Стрелка вниз (анимация) -->
+    <!-- Анимированная стрелка вниз -->
     <div class="index-arrow">↓</div>
 
     <!-- Ссылка «Связаться с космосом» -->
-    <!-- Пример: mailto или может быть любая другая ссылка -->
     <a href="mailto:contact@saveyou.link" class="contact-link">📡 Связаться с космосом</a>
 
-    <!-- Подпись внизу -->
+    <!-- Небольшая сноска -->
     <p class="footer-note">Сайт сгенерирован с любовью</p>
 
     <!-- Блок «Получить ранний доступ» -->
@@ -35,7 +38,7 @@
         placeholder="XXXXX-XXXXX"
         class="invite-input"
         required
-      >
+      />
       <button type="submit" class="invite-button">Войти</button>
     </form>
   </div>
