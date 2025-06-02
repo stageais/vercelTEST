@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multi-Link</title>
+  <!-- Подключаем общий файл стилей -->
+  <link href="{{ url_for('static', path='css/style.css') }}"  rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div class="linkpage-container">
+    <header class="linkpage-header">
+      <!-- Логотип (подставляется ботом через collection_id и links[0].logo_filename) -->
+      <img src="{{ url_for('static', path='collections/'+ collection_id + '/' + links[0].logo_filename) }}"
+           class="logo"
+           alt="Логотип">
+      <!-- Название (bot title) -->
+      <h1>{{ links[0].title }}</h1>
+      <p>ВСЕГДА АКТУАЛЬНЫЕ ССЫЛКИ</p>
+      <div class="arrow-down">↓</div>
+    </header>
+
+    <!-- Цикл по всем ссылкам -->
+    {% for link in links %}
+      <a class="link-button" href="{{ link.link }}" target="_blank">
+        <img src="{{ url_for('static', path='collections/'+ collection_id + '/' + link.logo_filename) }}"
+             class="btn-icon"
+             alt="Лого бота">
+        <span class="icon">➔</span>
+        <span class="text">{{ link.title }}</span>
+      </a>
+    {% endfor %}
+  </div>
+</body>
+</html>
