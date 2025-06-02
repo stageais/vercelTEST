@@ -4,14 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Multi-Link</title>
-  <!-- Простая ссылка на style.css рядом с этим файлом -->
   <link rel="stylesheet" href="style.css" />
   
 </head>
 <body class="linkpage-body">
   <div class="container">
     <header class="linkpage-header">
-      <!-- Логотип и заголовок (Jinja2 остаётся без изменений) -->
       <img
         src="{{ url_for('static', path='collections/' + collection_id + '/' + links[0].logo_filename) }}"
         class="logo"
@@ -22,7 +20,6 @@
       <div class="arrow-down">↓</div>
     </header>
 
-    <!-- Сам цикл с тремя ссылками (никаких правок в Jinja-блоках) -->
     {% for link in links %}
     <a class="link-button" href="{{ link.link }}" target="_blank">
       <img
@@ -30,7 +27,6 @@
         class="btn-icon"
         alt="Лого бота"
       >
-      <span class="icon">➔</span>
       <span class="text">{{ link.title }}</span>
     </a>
     {% endfor %}
