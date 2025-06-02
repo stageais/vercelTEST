@@ -4,36 +4,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Multi-Link</title>
-  <!-- Подключаем тот же CSS -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <!-- Простая ссылка на style.css рядом с этим файлом -->
+  <link rel="stylesheet" href="style.css" />
+  
 </head>
 <body class="linkpage-body">
-  <div class="linkpage-container">
+  <div class="container">
     <header class="linkpage-header">
-      <!-- Логотип (бота) -->
+      <!-- Логотип и заголовок (Jinja2 остаётся без изменений) -->
       <img
-        src="{{ url_for('static', filename='collections/' ~ collection_id ~ '/' ~ links[0].logo_filename) }}"
+        src="{{ url_for('static', path='collections/' + collection_id + '/' + links[0].logo_filename) }}"
         class="logo"
         alt="Логотип"
-      />
-      <!-- Название бота -->
+      >
       <h1 class="bot-title">{{ links[0].title }}</h1>
       <p class="bot-subtitle">ВСЕГДА АКТУАЛЬНЫЕ ССЫЛКИ</p>
       <div class="arrow-down">↓</div>
     </header>
 
-    <!-- Цикл по всем ссылкам (Jinja2 остаётся без изменений) -->
+    <!-- Сам цикл с тремя ссылками (никаких правок в Jinja-блоках) -->
     {% for link in links %}
-      <a class="link-button" href="{{ link.link }}" target="_blank">
-        <img
-          src="{{ url_for('static', filename='collections/' ~ collection_id ~ '/' ~ link.logo_filename) }}"
-          class="btn-icon"
-          alt="Лого бота"
-        />
-        <span class="icon">➔</span>
-        <span class="text">{{ link.title }}</span>
-      </a>
+    <a class="link-button" href="{{ link.link }}" target="_blank">
+      <img
+        src="{{ url_for('static', path='collections/' + collection_id + '/' + link.logo_filename) }}"
+        class="btn-icon"
+        alt="Лого бота"
+      >
+      <span class="icon">➔</span>
+      <span class="text">{{ link.title }}</span>
+    </a>
     {% endfor %}
+
+    <footer class="footer-note">
+      Сайт сгенерирован ботом
+    </footer>
   </div>
 </body>
 </html>
