@@ -25,8 +25,9 @@ html, body {
   max-width: 380px;
   margin: 0 auto;
   text-align: center;
-  position: relative; /* Для z-index дочерних элементов, если нужно */
+  position: relative; 
   padding: 20px;
+  z-index: 2; /* Контент внутри панелей должен быть выше их фона/тени */
 }
 
 .arrow-down {
@@ -47,146 +48,127 @@ html, body {
 body.split {
   display: flex;
   min-height: 100vh;
-  overflow-x: hidden; /* Предотвращаем появление горизонтальной прокрутки из-за формы панели */
+  overflow-x: hidden; 
 }
 
-/* Левая панель с полукруглым правым краем */
+/* Левая панель с полукруглым правым краем и свечением */
 .panel.left {
-  flex: 0 0 55%; /* Левая панель занимает 55% ширины, правая остальное */
+  flex: 0 0 55%; /* Левая панель занимает 55% ширины */
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  background-color: #1e1e1e; /* Цвет фона левой панели */
-  color: #ffffff;
+  background-color: #1e1e1e; /* Цвет фона левой панели (которая будет с полукругом) */
+  color: #ffffff; /* Основной цвет текста для левой панели */
   /* Формируем полукруглый правый край */
-  border-top-right-radius: 100vh;    /* Очень большое значение для создания плавного полукруга по высоте */
-  border-bottom-right-radius: 100vh; /* Аналогично для нижнего правого угла */
+  border-top-right-radius: 100vh;    
+  border-bottom-right-radius: 100vh; 
   /* Свечение по контуру полукруга */
   box-shadow: 5px 0px 15px 0px rgba(255, 215, 0, 0); /* Начальное состояние для анимации, золотой цвет */
   animation: panel-left-glow 5s infinite ease-in-out;
-  z-index: 1; /* Чтобы панель была над фоном правой, если вдруг тени пересекаются */
+  z-index: 2; /* Левая панель (с изгибом) должна быть выше правой, чтобы "наехать" */
   margin-right: -10vh; /* Сдвигаем панель вправо, чтобы кривизна "наезжала" на правую часть. Подберите значение. */
-                      /* Это значение должно быть связано с высотой (100vh) из border-radius для нужного эффекта */
+  padding: 20px;
 }
 
 @keyframes panel-left-glow {
-  0%   { box-shadow: 5px 0px 15px 0px rgba(255, 215, 0, 0.3); }
+  0%   { box-shadow: 5px 0px 15px 0px rgba(255, 215, 0, 0.3); } /* Свечение с правой стороны */
   50%  { box-shadow: 7px 0px 25px 5px rgba(255, 215, 0, 0.6); }
   100% { box-shadow: 5px 0px 15px 0px rgba(255, 215, 0, 0.3); }
 }
 
-.panel.left .container {
-  position: relative; /* Чтобы z-index сработал */
-  z-index: 2; 
-  max-width: 400px;
-}
-
-.panel.left .logo {
-  width: 80px;
-  height: auto;
-  margin-bottom: 12px;
-  border-radius: 50%;
-  border: 3px solid rgba(0, 200, 255, 0.7);
-  box-shadow: 0 0 12px rgba(0, 200, 255, 0.6);
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  object-fit: cover;
-}
-
-.panel.left h1 {
-  font-size: 2.2em;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-}
-
-.panel.left p {
-  font-size: 1em;
-  font-weight: 500;
-  color: #cccccc;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.panel.left .link-button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #1e1e1e;
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 1.1em;
-  font-weight: 700;
-  padding: 12px 20px;
-  margin: 20px auto;
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    background-color 0.3s ease;
-  width: fit-content;
-}
-
-.panel.left .link-button .icon {
-  margin-right: 8px;
-  font-size: 1.3em;
-}
-
-.panel.left .link-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(0, 200, 255, 0.9);
-  background-color: #2a2a2a;
-}
-
-.panel.left footer {
-  margin-top: 30px;
-  font-size: 0.85em;
-  color: #777777;
-}
-
-/* Правая панель (invite-box) */
+/* Правая панель (контент - форма) */
 .panel.right {
-  flex: 1; /* Занимает оставшееся место */
+  flex: 1 1 45%; 
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #121212; /* Фон правой панели */
+  background-color: #121212; /* Фон правой панели, на которую будет "наезжать" левая */
+  color: #e0e0e0;
   position: relative;
-  z-index: 0; /* Чтобы левая панель могла "наезжать" */
+  z-index: 1; /* Правая панель должна быть под "наезжающим" краем левой */
+  padding: 20px;
+}
+
+.panel.left .container { 
+  /* max-width: 400px; уже задано в общем .container */
+   color: #ffffff; /* Убедимся, что текст на левой панели читаем на фоне #1e1e1e */
+}
+/* Стили для элементов внутри .panel.left .container */
+.panel.left .logo { 
+  /* Стили логотипа остаются прежними */
+  width: 80px; height: auto; margin-bottom: 12px; border-radius: 50%;
+  border: 3px solid rgba(0, 200, 255, 0.7); box-shadow: 0 0 12px rgba(0, 200, 255, 0.6);
+  display: block; margin-left: auto; margin-right: auto; object-fit: cover;
+}
+.panel.left h1 { color: #ffffff; font-size: 2.2em; font-weight: 700; margin-bottom: 8px; text-transform: uppercase;}
+.panel.left p { color: #cccccc; font-size: 1em; font-weight: 500; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;}
+.panel.left .link-button { 
+  background-color: #1e1e1e; /* Фон кнопки может быть таким же как у панели или контрастным */
+  color: #ffffff; 
+  border: 1px solid rgba(0,200,255,0.3); /* Добавим рамку для лучшего выделения */
+  box-shadow: 0 0 8px rgba(0,200,255,0.5); 
+  position: relative; display: flex; align-items: center; justify-content: center;
+  text-decoration: none; font-size: 1.1em; font-weight: 700; padding: 12px 20px;
+  margin: 20px auto; border-radius: 30px; overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  width: fit-content; 
+}
+.panel.left .link-button .icon { margin-right: 8px; font-size: 1.3em; }
+.panel.left .link-button:hover { background-color: #2a2a2a; box-shadow: 0 0 20px rgba(0,200,255,0.9); transform: scale(1.05); }
+.panel.left footer { color: #777777; margin-top:30px; font-size: 0.85em; }
+
+
+/* Контейнер для формы на правой панели */
+.panel.right .container {
+  /* max-width: 330px; уже задано в общем .container, но для invite-box свой max-width */
 }
 
 .invite-box {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 40px 30px;
-  background-color: #1e1e1e;
+  padding: 30px;
+  background-color: #1e1e1e; /* Фон инвайт-бокса */
   border-radius: 20px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-  width: 100%;
-  max-width: 330px;
+  width: 100%; 
+  max-width: 300px; 
+  margin: 0 auto; 
 }
 
 .invite-box h2, .invite-box label, .invite-box input, .invite-box button, .invite-box .flash {
   color: #e0e0e0; 
 }
 .invite-box h2 { color: #ffffff; }
-.invite-box input { background-color: #121212; border: 2px solid #333333; color: #ffffff; }
+.invite-box input { 
+  background-color: #121212; /* Фон поля ввода */
+  border: 2px solid #333333; 
+  color: #ffffff; 
+  width: 100%; 
+  padding: 12px; 
+  font-size: 1em; 
+}
 .invite-box input:focus { border-color: #00c8ff; box-shadow: 0 0 5px rgba(0, 200, 255, 0.4); }
-.invite-box button { background-color: #00c8ff; color: #121212; }
-.invite-box button:hover { background-color: #00a8d6; }
+.invite-box button { 
+  background-color: #00c8ff; 
+  color: #121212; 
+  width: 100%; 
+  padding: 12px; 
+  font-size: 1em; 
+  border: none; 
+  border-radius: 12px; 
+  font-weight: 700; 
+  cursor: pointer; 
+  transition: background-color 0.2s ease, transform 0.2s ease; 
+}
+.invite-box button:hover { background-color: #00a8d6; transform: translateY(-2px); }
 .invite-box .flash { color: #e05252; }
 
 
 /*=============================================================================
   === СТИЛИ ДЛЯ link_page.html (мультиссылки) ===
+  (Эта секция остается как в вашем последнем рабочем варианте)
 =============================================================================*/
 body.linkpage-body {
   display: flex;
@@ -227,7 +209,6 @@ body.linkpage-body {
   letter-spacing: 0.5px;
 }
 
-/* Стили для кнопок на link_page.html */
 body.linkpage-body .link-button {
   position: relative;
   display: flex;
@@ -312,52 +293,64 @@ body.linkpage-body .link-button:nth-of-type(1)::before {
 /*=============================================================================
   Адаптивные стили для экранов
 =============================================================================*/
-@media (max-width: 768px) { /* Изменен breakpoint на более стандартный для планшетов/мобильных */
+@media (max-width: 768px) { 
   /* === Адаптация для index.html === */
   body.split {
-    flex-direction: column; /* Панели друг под другом */
+    flex-direction: column; /* Левая панель (с контентом) теперь СВЕРХУ */
   }
 
   .panel.left, .panel.right {
-    flex: none; /* Сброс flex-grow/shrink */
-    width: 100%; /* Панели на всю ширину */
-    margin-right: 0; /* Убираем сдвиг для мобильных */
+    flex: none; 
+    width: 100%; 
+    margin-left: 0; 
+    margin-right: 0;
   }
 
-  .panel.left {
-    /* Полукруг снизу для верхней панели. */
-    border-radius: 0 0 35vw 35vw; /* Используем vw для радиуса, чтобы он зависел от ширины экрана. Подберите значение. */
-    min-height: 55vh; /* Минимальная высота для контента и формы изгиба */
-    /* Отрицательный margin-bottom заставит нижнюю панель "подъехать" под изгиб. */
-    /* Это значение должно быть примерно равно вертикальному радиусу изгиба. */
+  .panel.left { /* Теперь это ВЕРХНЯЯ панель на мобильных */
+    border-radius: 0 0 35vw 35vw; 
+    min-height: 55vh; 
     margin-bottom: -15vh; /* Подберите это значение тщательно! */
-    box-shadow: 0px 5px 15px 0px rgba(255, 215, 0, 0); /* Начальное состояние для анимации, золотой цвет */
-    animation: panel-left-glow-mobile 5s infinite ease-in-out; 
+    box-shadow: 0px 5px 15px 0px rgba(255, 215, 0, 0); 
+    animation: panel-left-glow-mobile 5s infinite ease-in-out; /* Переименованная анимация для левой панели */
+    z-index: 1; 
+    padding: 20px; 
   }
   
-  @keyframes panel-left-glow-mobile {
+  @keyframes panel-left-glow-mobile { /* Анимация для свечения нижней части левой (теперь верхней) панели */
     0%   { box-shadow: 0px 5px 15px 0px rgba(255, 215, 0, 0.3); }
     50%  { box-shadow: 0px 7px 25px 5px rgba(255, 215, 0, 0.6); }
     100% { box-shadow: 0px 5px 15px 0px rgba(255, 215, 0, 0.3); }
   }
 
-  .panel.right {
+  .panel.right { /* Теперь это НИЖНЯЯ панель на мобильных */
     min-height: 45vh; 
-    /* Отступ сверху, чтобы форма не заезжала под верхнюю панель. Должен быть больше, чем abs(margin-bottom) у .panel.left */
     padding-top: 18vh; /* Подберите это значение тщательно! */
-    z-index: -1; /* Чтобы оказаться под изгибом верхней панели */
+    background-color: #121212; /* Фон для правой (теперь нижней) панели */
+    z-index: 0; 
+    border-radius: 0; /* Убираем радиусы, если они были у правой панели на десктопе */
+    padding: 20px;
+    padding-top: 18vh; /* Сохраняем отступ для "наезда" */
   }
-
+  
   /* Общие адаптивные стили */
-  .bot-title, .panel.left h1 { font-size: 2em; }
-  .bot-subtitle, .panel.left p { font-size: 0.8em; }
-  /* Уточнение селектора для кнопок, чтобы не затронуть кнопку на index.html если у них разный адаптивный размер */
-  body.linkpage-body .link-button { font-size: 1em; padding: 12px 18px; }
-  .panel.left .link-button { font-size: 1em; padding: 10px 15px; } /* Если для кнопки на index.html нужен другой размер */
+  .bot-title { font-size: 1.8em; } 
+  .panel.left h1 { font-size: 1.8em; } 
+  
+  .bot-subtitle { font-size: 0.75em; }
+  .panel.left p { font-size: 0.75em; }
 
-  body.linkpage-body .link-button .btn-icon { width: 32px; height: 32px; margin-right: 8px; }
-  .arrow-down { font-size: 1.5em; margin-bottom: 15px; }
-  .invite-box { padding: 30px 20px; }
-  .invite-box h2 { font-size: 1.2em; }
-  .invite-box input, .invite-box button { font-size: 0.9em; }
+  body.linkpage-body .link-button { font-size: 0.9em; padding: 10px 15px; }
+  .panel.left .link-button { font-size: 0.9em; padding: 10px 15px; margin-top: 15px; }
+
+
+  body.linkpage-body .link-button .btn-icon { width: 28px; height: 28px; margin-right: 8px; }
+  .arrow-down { font-size: 1.3em; margin-bottom: 10px; }
+  
+  .invite-box { 
+      padding: 20px; 
+      margin-top: 2vh; 
+      max-width: 90%; 
+  }
+  .invite-box h2 { font-size: 1.1em; }
+  .invite-box input, .invite-box button { font-size: 0.85em; padding: 10px; }
 }
