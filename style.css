@@ -1,5 +1,5 @@
 /*=============================================================================
-  Общие настройки и сбросы
+  Общие сбросы и подключение шрифта
 =============================================================================*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -16,10 +16,10 @@ html, body {
 }
 
 /*=============================================================================
-  СТИЛИ ДЛЯ index.html
+  СТИЛИ ДЛЯ index.html (главная-заглушка)
 =============================================================================*/
 .index-body {
-  background-color: #f5f5f5; /* светлый фон для страницы-заглушки */
+  background-color: #f5f5f5; /* светлый фон для заглушки */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,7 +56,7 @@ html, body {
 .index-arrow {
   font-size: 1.5em;
   color: #777777;
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
   animation: arrow-bounce 1.5s infinite ease-in-out;
 }
 
@@ -131,21 +131,23 @@ html, body {
 }
 
 /*=============================================================================
-  СТИЛИ ДЛЯ link_page.html (мультиссылки)
+  СТИЛИ ДЛЯ link_page.html (страница мультиссылок)
 =============================================================================*/
-body {
+.linkpage-body {
   background-color: #121212; /* тёмный фон */
   color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 15px;
 }
 
-/* Контейнер для страницы с мультиссылками */
 .linkpage-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 25px 15px;
   max-width: 400px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 /* Заголовок и логотип */
@@ -164,7 +166,7 @@ body {
   object-fit: cover;
 }
 
-.linkpage-header h1 {
+.bot-title {
   font-size: 2.2em;
   font-weight: 700;
   color: #ffffff;
@@ -172,7 +174,7 @@ body {
   text-transform: uppercase;
 }
 
-.linkpage-header p {
+.bot-subtitle {
   font-size: 0.9em;
   font-weight: 500;
   color: #cccccc;
@@ -187,7 +189,7 @@ body {
   animation: arrow-bounce 1.5s infinite ease-in-out;
 }
 
-/* Кнопки – общие стили */
+/* Стили кнопок */
 .link-button {
   position: relative;
   display: flex;
@@ -209,7 +211,7 @@ body {
   max-width: 300px;
 }
 
-/* Иконка внутри кнопки (логотип бота) */
+/* Иконка внутри кнопки (logo бота) */
 .link-button .btn-icon {
   width: 40px;
   height: 40px;
@@ -222,7 +224,7 @@ body {
   box-shadow: 0 0 6px rgba(0, 200, 255, 0.4);
 }
 
-/* Стрелка/иконка внутри кнопки */
+/* Стрелка внутри кнопки */
 .link-button .icon {
   margin-right: 8px;
   font-size: 1.3em;
@@ -233,21 +235,21 @@ body {
   flex-shrink: 0;
 }
 
-/* Hover-эффекты для кнопок */
+/* Hover-эффекты */
 .link-button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(0, 200, 255, 0.9);
   background-color: #2a2a2a;
 }
 
-/* Анимация «пульсации» свечения у всех кнопок */
+/* “Пульсация” свечения у всех кнопок */
 @keyframes glow {
   0%   { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
   50%  { box-shadow: 0 0 16px rgba(0, 200, 255, 0.8); }
   100% { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
 }
 
-/* Блик на первой кнопке (Основной бот) */
+/* Блик на первой кнопке (“Основной бот”) */
 .link-button:nth-of-type(1)::before {
   content: '';
   position: absolute;
@@ -263,17 +265,16 @@ body {
   z-index: 1;
 }
 
-/* Анимация пробега блика */
 @keyframes sheen {
   0%   { left: -50%; }
   100% { left: 150%; }
 }
 
 /*=============================================================================
-  Адаптивность
+  Адаптивность (мелкие экраны)
 =============================================================================*/
 @media (max-width: 480px) {
-  /* Подгоняем стили для index.html */
+  /* index.html */
   .index-container {
     padding: 20px 15px;
   }
@@ -287,11 +288,11 @@ body {
     padding: 8px 14px;
   }
 
-  /* Подгоняем стили для link_page.html */
+  /* link_page.html */
   .linkpage-container {
     padding: 15px 10px;
   }
-  .linkpage-header h1 {
+  .bot-title {
     font-size: 2em;
   }
   .link-button {
