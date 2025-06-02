@@ -1,145 +1,189 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+/* =========================================================================
+   Новый дизайн для link_page.html
+   ----------------------------------------------------------------------------
+   - Фон тёмный (почти чёрный);
+   - Кнопки круглые, с лёгким пульсирующим голубым свечением;
+   - Первая кнопка (“Основной бот”) имеет постоянный анимационный блик;
+   - При наведении кнопки слегка увеличиваются и свечения усиливаются;
+   - Логотип и заголовок остаются “в центре” и подхватывают переменные Jinja2.
+   ======================================================================== */
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* Подключаем шрифт Roboto (можно убрать, если это не нужно) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-body {
-  font-family: 'Oswald', sans-serif;
-  background: #FFD1DC;
-  overflow: hidden;
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* ПАРАЛЛАКС-ОБЛАКА */
+html, body {
+  height: 100%;
+  background-color: #121212; /* тёмный фон */
+  color: #e0e0e0;            /* светло-серый текст */
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Сбрасываем облака (если они есть в HTML) – скрываем */
 .cloud {
-  position: absolute;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 60"><path d="M100,30a20,20 0 1,0-40,0 18,18 0 0,0-36,0c0,2 .2,4 .6,6h70a16,16 0 0,0 4-6z" fill="%23FFF" opacity="0.7"/></svg>') no-repeat center/contain;
-  opacity: 0.6;
+  display: none;
 }
 
-.cloud--small {
-  width: 100px; height: 50px;
-  top: 10%; left: 15%;
-  animation: drift 40s linear infinite alternate;
-}
-.cloud--medium {
-  width: 200px; height: 100px;
-  top: 30%; right: 10%;
-  animation: drift 60s linear infinite alternate-reverse;
-}
-.cloud--large {
-  width: 300px; height: 150px;
-  bottom: 20%; left: 20%;
-  animation: drift 80s linear infinite alternate;
-}
-.cloud--xlarge {
-  width: 400px; height: 200px;
-  bottom: 0; right: 0;
-  animation: drift 100s linear infinite alternate-reverse;
-}
-
-@keyframes drift {
-  from { transform: translateX(-50px); }
-  to   { transform: translateX(50px);  }
-}
-
-/* СЕРДЕЧКИ ВЕЗДЕ */
-.heart {
-  position: absolute;
-  width: 20px; height: 18px;
-  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path d="M4,12 a8,8 0 0,1 16,0 8,8 0 0,1 16,0 L16,30 Z" fill="%23FF6B6B"/></svg>') no-repeat center/contain;
-  animation: floatUp 6s infinite ease-in;
-  left: calc(20% + 60vw * var(--i));
-  bottom: -10%;
-}
-.heart:nth-child(1) { --i: 0.1; animation-delay: 0s; }
-.heart:nth-child(2) { --i: 0.3; animation-delay: 1s; }
-.heart:nth-child(3) { --i: 0.5; animation-delay: 2s; }
-.heart:nth-child(4) { --i: 0.7; animation-delay: 3s; }
-.heart:nth-child(5) { --i: 0.9; animation-delay: 4s; }
-
-@keyframes floatUp {
-  0%   { transform: translateY(0) scale(1); opacity: 0.8; }
-  50%  { opacity: 1; }
-  100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
-}
-
-/* КОНТЕЙНЕР */
-.container {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 20px;
-  max-width: 400px; width: 90%;
-}
-
-/* ШАПКА */
-.logo {
-  width: 120px; height: auto;
-  border: 3px solid #fff; border-radius: 50%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  margin-bottom: 10px;
-}
-h1 {
-  font-size: 2.5rem; color: #3a2e2e;
-  margin-bottom: 5px; text-transform: uppercase;
-}
-p { font-size: 0.9rem; color: #5c4b4b; margin-bottom: 15px; text-transform: uppercase; }
-.arrow { font-size: 1.5rem; color: #e91e63; margin-bottom: 20px; }
-
-/* КНОПКИ */
-.link-button {
+/* Центрируем содержимое по вертикали/горизонтали */
+body {
   display: flex;
   align-items: center;
-  position: relative;
-  background: #FF6B6B;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 30px;
-  padding: 15px 20px;
-  margin: 10px 0;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  overflow: hidden;
+  justify-content: center;
 }
-.link-button .btn-icon {
-  width: 36px; height: 36px;
+
+/* Контейнер с логотипом, заголовком и кнопками */
+.container {
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  padding: 20px;
+}
+
+/* -------------- СТИЛИЗАЦИЯ ЛОГОТИПА И ЗАГОЛОВКА -------------- */
+.logo {
+  width: 100px;
+  height: auto;
   border-radius: 50%;
+  border: 3px solid rgba(0, 200, 255, 0.7);
+  box-shadow: 0 0 12px rgba(0, 200, 255, 0.6);
+  margin-bottom: 10px;
   object-fit: cover;
-  margin-right: 15px;
+}
+
+header h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+header p {
+  font-size: 0.9em;
+  font-weight: 500;
+  color: #cccccc;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.arrow-down {
+  font-size: 1.8em;
+  color: #00c8ff;
+  margin-top: 10px;
+  animation: arrow-bounce 1.5s infinite ease-in-out;
+}
+
+/* Анимация для стрелки вниз */
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
+
+/* -------------- СТИЛИЗАЦИЯ КНОПОК -------------- */
+/* Общие стили для всех кнопок */
+.link-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1e1e1e;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.1em;
+  font-weight: 700;
+  padding: 15px 25px;
+  margin: 20px 0;
+  border-radius: 30px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  /* Пульсирующее голубое свечение */
+  box-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
+  animation: glow 2s infinite ease-in-out;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Значок внутри кнопки (логотип бота) */
+.link-button .btn-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  object-fit: contain;
+  background-color: #2a2a2a;
+  border: 2px solid rgba(0, 200, 255, 0.5);
+  box-shadow: 0 0 6px rgba(0, 200, 255, 0.4);
+}
+
+/* Стрелка/иконка внутри кнопки */
+.link-button .icon {
+  margin-right: 8px;
+  font-size: 1.3em;
+}
+
+/* Текст кнопки */
+.link-button .text {
   flex-shrink: 0;
 }
-.link-button .btn-text {
-  flex-grow: 1;
-  text-align: center;
-  font-size: 1.1rem;
-  font-weight: 700;
-}
 
-/* БЛИК ТОЛЬКО НА ПЕРВОЙ */
-.link-button.primary .shine {
-  content: "";
-  position: absolute;
-  top: 0; left: -40%;
-  width: 40%; height: 100%;
-  background: rgba(255,255,255,0.3);
-  transform: skewX(-20deg);
-  animation: shine 2.5s infinite;
-}
-@keyframes shine {
-  0%   { left: -40%; }
-  100% { left: 140%; }
-}
-
-/* ХОВЕР */
+/* При наведении – увеличиваем и усиливаем свечения */
 .link-button:hover {
-  background: #e05252;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 200, 255, 0.9);
+  background-color: #2a2a2a;
 }
 
-/* ФУТЕР */
-footer {
-  margin-top: 25px;
-  font-size: 0.8rem; color: #777;
+/* Анимация “пульсации” для всех кнопок */
+@keyframes glow {
+  0%   { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
+  50%  { box-shadow: 0 0 16px rgba(0, 200, 255, 0.8); }
+  100% { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
+}
+
+/* Специальный “блик” для первой кнопки (Основной бот) */
+.link-button:nth-of-type(1)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: skewX(-20deg);
+  filter: blur(1px);
+  animation: sheen 3s infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Анимация пробега блика */
+@keyframes sheen {
+  0%   { left: -50%; }
+  100% { left: 150%; }
+}
+
+/* Скрываем фоновые изображения (облака) в малых разрешениях, если вдруг появились */
+@media (max-width: 480px) {
+  .link-button {
+    font-size: 1em;
+    padding: 12px 20px;
+  }
+  .link-button .btn-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+  }
+  header h1 {
+    font-size: 1.8em;
+  }
+  header p {
+    font-size: 0.8em;
+  }
 }
