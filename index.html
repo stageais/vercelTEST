@@ -1,57 +1,47 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8"/>
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Multi-Link | 🔻ОДЕЖДЫ.NET🔺</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Multi-Link – ранний доступ</title>
+
+  <!-- local static file -->
+  <link href="{{ url_for('static', path='css/style.css') }}"  rel="stylesheet" type="text/css">
 </head>
-<body>
 
-  <!-- МНОГО ОБЛАКОВ С ПАРАЛЛАКСОМ -->
-  <div class="cloud cloud--small"></div>
-  <div class="cloud cloud--medium"></div>
-  <div class="cloud cloud--large"></div>
-  <div class="cloud cloud--xlarge"></div>
+<body class="split">
+  <!-- ───────────────────────── LEFT PANEL ───────────────────────── -->
+  <section class="panel left">
+    <!-- clouds are absolutely-positioned, so the content sits on top -->
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
+    <div class="cloud cloud3"></div>
 
-  <!-- ЛЕТАЮЩИЕ СЕРДЕЧКИ -->
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
-  <div class="heart"></div>
+    <div class="container">
+      <!-- dynamic placeholders (replace server-side or with Jinja) -->
+      <header>
+        <img src="{{ url_for('static', path='images/logo.jpg') }}" class="logo" alt="Логотип">
+        <h1>Save you link</h1>
+        <p>Наш сервис находится на этапе прототипирования</p>
+        <div class="arrow-down">↓</div>
+      </header>
 
-  <div class="container">
-    <header>
-      <img src="logo.jpg" class="logo" alt="Логотип"/>
-      <h1>🔻ОДЕЖДЫ.NET🔺</h1>
-      <p>ВСЕГДА АКТУАЛЬНЫЕ ССЫЛКИ</p>
-      <div class="arrow">↓</div>
-    </header>
+      <a class="link-button" href="https://www.spacex.com/" target="_blank">
+        <span class="icon">📡</span><span class="text">Связаться с космосом</span>
+      </a>
 
-    <!-- Основная кнопка с бликом -->
-    <a href="https://t.me/odzhdaest_bot" class="link-button primary" target="_blank">
-      <div class="shine"></div>
-      <img src="logo.jpg" class="btn-icon" alt="Лого бота"/>
-      <span class="btn-text">Основной бот</span>
-    </a>
+      <footer><p>Сайт сгенерирован с любовью</p></footer>
+    </div>
+  </section>
 
-    <!-- Резервная кнопка без блика -->
-    <a href="https://t.me/odezhdatytbot" class="link-button" target="_blank">
-      <img src="logo.jpg" class="btn-icon" alt="Лого резервного бота"/>
-      <span class="btn-text">Резервный бот</span>
-    </a>
-
-    <!-- Кнопка канала без блика -->
-    <a href="https://t.me/odzhdadom" class="link-button" target="_blank">
-      <img src="logo.jpg" class="btn-icon" alt="Лого канала"/>
-      <span class="btn-text">Канал</span>
-    </a>
-
-    <footer>
-      <p>Сайт сгенерирован ботом</p>
-    </footer>
-  </div>
-
+  <!-- ───────────────────────── RIGHT PANEL ───────────────────────── -->
+  <section class="panel right">
+    <form class="invite-box" method="get" action="/">
+      <h2>Получить ранний доступ</h2>
+      <label for="code">Инвайт-код</label>
+      <input id="code" name="code" type="text" placeholder="XXXX-XXXX" required>
+      <button type="submit">Войти</button>
+    </form>
+  </section>
 </body>
 </html>
