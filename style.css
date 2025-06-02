@@ -59,11 +59,9 @@ body.split {
   position: relative;
   background-color: #1e1e1e;
   color: #ffffff;
-  overflow: hidden;
-  z-index: 2; /* Чтобы содержимое было над полувалом */
 }
 
-/* Плавный овал вместо резкого скоса + лёгкое пульсирующее свечение под ним */
+/* Плавный овал вместо резкого скоса */
 .panel.left::after {
   content: "";
   position: absolute;
@@ -73,20 +71,11 @@ body.split {
   height: 100%;            /* Высота = высота панели, чтобы овал тянулся от верха до низа */
   background: inherit;     /* Тот же цвет, что у .panel.left */
   border-radius: 0 100% 100% 0; /* Правые верхний и нижний углы полностью закруглены */
-  z-index: 1;              /* Под содержимым, но над правой панелью */
-  /* Лёгкое пульсирующее свечение снизу: */
-  box-shadow: 5px 0 12px rgba(255, 255, 0, 0.2);
-  animation: glow-yellow 3s infinite ease-in-out;
-}
-
-@keyframes glow-yellow {
-  0%   { box-shadow: 5px 0 8px rgba(255, 255, 0, 0.15); }
-  50%  { box-shadow: 5px 0 18px rgba(255, 255, 0, 0.35); }
-  100% { box-shadow: 5px 0 8px rgba(255, 255, 0, 0.15); }
+  z-index: 0;              /* Овал лежит за контентом левой панели */
 }
 
 .panel.left .container {
-  z-index: 2;              /* Контент поверх псевдоэлемента */
+  z-index: 1;              /* Контент над овалом */
   max-width: 400px;
 }
 
@@ -109,7 +98,6 @@ body.split {
   color: #ffffff;
   margin-bottom: 8px;
   text-transform: uppercase;
-  line-height: 1.2;
 }
 
 .panel.left p {
@@ -137,7 +125,7 @@ body.split {
   border-radius: 30px;
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
-  animation: glow-blue 2s infinite ease-in-out;
+  animation: glow 2s infinite ease-in-out;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease,
@@ -157,12 +145,6 @@ body.split {
   background-color: #2a2a2a;
 }
 
-@keyframes glow-blue {
-  0%   { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
-  50%  { box-shadow: 0 0 16px rgba(0, 200, 255, 0.8); }
-  100% { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
-}
-
 /* Нижняя подпись в левой панели */
 .panel.left footer {
   margin-top: 30px;
@@ -177,8 +159,6 @@ body.split {
   justify-content: center;
   align-items: center;
   background-color: #121212;
-  position: relative;
-  z-index: 0; /* Под полувалом левой панели */
 }
 
 .invite-box {
@@ -372,70 +352,43 @@ body.linkpage-body {
 }
 
 /*=============================================================================
-  Адаптивные стили для экранов до 768px и до 480px
+  Адаптивные стили для экранов до 480px
 =============================================================================*/
-@media (max-width: 768px) {
-  /* Переключаем на столбцы: панели одна под другой */
-  body.split {
-    flex-direction: column;
-  }
-
-  /* Левая панель — ширина 100%, скрываем псевдо-овал */
-  .panel.left {
-    width: 100%;
-  }
-  .panel.left::after {
-    display: none;
-  }
-
-  /* Правая панель — ширина 100% и небольшой отступ сверху */
-  .panel.right {
-    width: 100%;
-    padding: 30px 0;
-  }
-
-  /* Уменьшаем внутренние отступы контейнера */
-  .panel.left .container {
-    padding: 15px;
-  }
-  .invite-box {
-    margin-top: 20px; /* Разделение между панелями */
-  }
-
-  /* Шрифты и размеры блоков для мобильных */
-  .panel.left h1 {
-    font-size: 1.8em;
-  }
-  .panel.left p {
-    font-size: 0.9em;
-  }
-  .panel.left .link-button {
-    font-size: 1em;
-    padding: 10px 16px;
-  }
-  .panel.left .logo {
-    width: 60px;
-    margin-bottom: 10px;
-  }
-}
-
 @media (max-width: 480px) {
-  /* Ещё более компактный вид для узких экранов */
+  /* Заголовки */
+  .bot-title {
+    font-size: 2em;
+  }
+  .bot-subtitle {
+    font-size: 0.8em;
+  }
+
+  /* Кнопки */
+  .link-button {
+    font-size: 1em;
+    padding: 12px 18px;
+  }
+  .link-button .btn-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+  }
+
+  /* Стрелка вниз */
+  .arrow-down {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+
+  /* Левая панель – заголовок */
   .panel.left h1 {
-    font-size: 1.6em;
+    font-size: 2em;
   }
   .panel.left p {
     font-size: 0.8em;
   }
-  .panel.left .link-button {
-    font-size: 0.9em;
-    padding: 8px 14px;
-  }
-  .panel.left .logo {
-    width: 50px;
-    margin-bottom: 8px;
-  }
 
+  /* Invite-box */
   .invite-box {
     padding: 30px 20px;
   }
@@ -444,10 +397,8 @@ body.linkpage-body {
   }
   .invite-box input {
     font-size: 0.9em;
-    padding: 10px;
   }
   .invite-box button {
     font-size: 0.9em;
-    padding: 10px;
   }
 }
