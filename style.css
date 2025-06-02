@@ -1,5 +1,5 @@
 /*=============================================================================
-  Подключение шрифта Oswald (через Google Fonts) и глобальные сбросы
+  Подключение шрифта Oswald и глобальные сбросы
 =============================================================================*/
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
 
@@ -12,9 +12,9 @@
 html, body {
   width: 100%;
   height: 100%;
-  font-family: 'Oswald', sans-serif; /* теперь основной шрифт — Oswald */
-  background-color: #121212; /* тёмный фон */
-  color: #e0e0e0;            /* светлый текст */
+  font-family: 'Oswald', sans-serif; /* Основной шрифт — Oswald */
+  background-color: #121212;          /* Тёмный фон */
+  color: #e0e0e0;                     /* Светлый текст */
 }
 
 /*=============================================================================
@@ -29,6 +29,7 @@ html, body {
   padding: 20px;
 }
 
+/* Анимированная стрелка “↓” */
 .arrow-down {
   font-size: 1.8em;
   color: #00c8ff;
@@ -42,7 +43,7 @@ html, body {
 }
 
 /*=============================================================================
-  === СТИЛИ ДЛЯ index.html (главная) ===
+  === СТИЛИ ДЛЯ index.html (главная “ранний доступ”) ===
 =============================================================================*/
 body.split {
   display: flex;
@@ -60,21 +61,21 @@ body.split {
   color: #ffffff;
 }
 
+/* Плавный овал вместо резкого скоса */
 .panel.left::after {
   content: "";
   position: absolute;
   top: 0;
-  right: -40px;
-  width: 80px;
-  height: 100%;
-  background: inherit;
-  transform: skewX(-10deg);
-  transform-origin: top right;
-  z-index: 0;
+  right: -100px;           /* Смещение вправо на половину ширины */
+  width: 200px;            /* Ширина «овала» */
+  height: 100%;            /* Высота = высота панели, чтобы овал тянулся от верха до низа */
+  background: inherit;     /* Тот же цвет, что у .panel.left */
+  border-radius: 0 100% 100% 0; /* Правые верхний и нижний углы полностью закруглены */
+  z-index: 0;              /* Овал лежит за контентом левой панели */
 }
 
 .panel.left .container {
-  z-index: 1;
+  z-index: 1;              /* Контент над овалом */
   max-width: 400px;
 }
 
@@ -108,7 +109,7 @@ body.split {
   letter-spacing: 0.5px;
 }
 
-/* Кнопка “Связаться с космосом” (общий класс link-button) */
+/* Кнопка “Связаться с космосом” (левый link-button) */
 .panel.left .link-button {
   position: relative;
   display: flex;
@@ -125,9 +126,10 @@ body.split {
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
   animation: glow 2s infinite ease-in-out;
-  transition: transform 0.3s ease,
-              box-shadow 0.3s ease,
-              background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
   width: fit-content;
 }
 
@@ -138,11 +140,12 @@ body.split {
 
 .panel.left .link-button:hover {
   transform: scale(1.05);
-  animation: none;
+  animation: none; /* Остановить пульсацию */
   box-shadow: 0 0 20px rgba(0, 200, 255, 0.9);
   background-color: #2a2a2a;
 }
 
+/* Нижняя подпись в левой панели */
 .panel.left footer {
   margin-top: 30px;
   font-size: 0.85em;
@@ -282,9 +285,10 @@ body.linkpage-body {
   overflow: hidden;
   box-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
   animation: glow 2s infinite ease-in-out;
-  transition: transform 0.3s ease,
-              box-shadow 0.3s ease,
-              background-color 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
   width: 100%;
 }
 
@@ -294,7 +298,7 @@ body.linkpage-body {
   margin-right: 12px;
   flex-shrink: 0;
   object-fit: cover;
-  border-radius: 50%;                     /* круглые логотипы */
+  border-radius: 50%;                     /* Круглые логотипы */
   background-color: #2a2a2a;
   border: 2px solid rgba(0, 200, 255, 0.5);
   box-shadow: 0 0 6px rgba(0, 200, 255, 0.4);
@@ -307,7 +311,7 @@ body.linkpage-body {
 
 .link-button:hover {
   transform: scale(1.05);
-  animation: none; /* остановить пульсацию */
+  animation: none;  /* Остановить пульсацию */
   box-shadow: 0 0 20px rgba(0, 200, 255, 0.9);
   background-color: #2a2a2a;
 }
@@ -318,13 +322,13 @@ body.linkpage-body {
   100% { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
 }
 
-/* Узкий блеск для первой кнопки */
+/* Узкий блеск для первой кнопки (“Основной бот”) */
 .link-button:nth-of-type(1)::before {
   content: '';
   position: absolute;
   top: 0;
   left: -40%;
-  width: 8%;                /* очень тонкая полоска */
+  width: 8%;                /* Очень тонкая полоска */
   height: 100%;
   background: rgba(255, 255, 255, 0.2);
   transform: skewX(-20deg);
@@ -348,15 +352,18 @@ body.linkpage-body {
 }
 
 /*=============================================================================
-  Адаптив для экранов < 480px
+  Адаптивные стили для экранов до 480px
 =============================================================================*/
 @media (max-width: 480px) {
+  /* Заголовки */
   .bot-title {
     font-size: 2em;
   }
   .bot-subtitle {
     font-size: 0.8em;
   }
+
+  /* Кнопки */
   .link-button {
     font-size: 1em;
     padding: 12px 18px;
@@ -366,8 +373,32 @@ body.linkpage-body {
     height: 32px;
     margin-right: 8px;
   }
+
+  /* Стрелка вниз */
   .arrow-down {
     font-size: 1.5em;
     margin-bottom: 15px;
+  }
+
+  /* Левая панель – заголовок */
+  .panel.left h1 {
+    font-size: 2em;
+  }
+  .panel.left p {
+    font-size: 0.8em;
+  }
+
+  /* Invite-box */
+  .invite-box {
+    padding: 30px 20px;
+  }
+  .invite-box h2 {
+    font-size: 1.2em;
+  }
+  .invite-box input {
+    font-size: 0.9em;
+  }
+  .invite-box button {
+    font-size: 0.9em;
   }
 }
