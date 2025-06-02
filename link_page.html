@@ -4,28 +4,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Multi-Link</title>
-  <!-- Подключаем общий файл стилей -->
-  <link href="{{ url_for('static', path='css/style.css') }}"  rel="stylesheet" type="text/css">
+  <!-- Подключаем тот же CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 </head>
-<body>
+<body class="linkpage-body">
   <div class="linkpage-container">
     <header class="linkpage-header">
-      <!-- Логотип (подставляется ботом через collection_id и links[0].logo_filename) -->
-      <img src="{{ url_for('static', path='collections/'+ collection_id + '/' + links[0].logo_filename) }}"
-           class="logo"
-           alt="Логотип">
-      <!-- Название (bot title) -->
-      <h1>{{ links[0].title }}</h1>
-      <p>ВСЕГДА АКТУАЛЬНЫЕ ССЫЛКИ</p>
+      <!-- Логотип (бота) -->
+      <img
+        src="{{ url_for('static', filename='collections/' ~ collection_id ~ '/' ~ links[0].logo_filename) }}"
+        class="logo"
+        alt="Логотип"
+      />
+      <!-- Название бота -->
+      <h1 class="bot-title">{{ links[0].title }}</h1>
+      <p class="bot-subtitle">ВСЕГДА АКТУАЛЬНЫЕ ССЫЛКИ</p>
       <div class="arrow-down">↓</div>
     </header>
 
-    <!-- Цикл по всем ссылкам -->
+    <!-- Цикл по всем ссылкам (Jinja2 остаётся без изменений) -->
     {% for link in links %}
       <a class="link-button" href="{{ link.link }}" target="_blank">
-        <img src="{{ url_for('static', path='collections/'+ collection_id + '/' + link.logo_filename) }}"
-             class="btn-icon"
-             alt="Лого бота">
+        <img
+          src="{{ url_for('static', filename='collections/' ~ collection_id ~ '/' ~ link.logo_filename) }}"
+          class="btn-icon"
+          alt="Лого бота"
+        />
         <span class="icon">➔</span>
         <span class="text">{{ link.title }}</span>
       </a>
