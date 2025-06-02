@@ -1,51 +1,160 @@
-/* =========================================================================
-   Новый дизайн для link_page.html
-   ----------------------------------------------------------------------------
-   - Фон тёмный (почти чёрный);
-   - Кнопки круглые, с лёгким пульсирующим голубым свечением;
-   - Первая кнопка (“Основной бот”) имеет постоянный анимационный блик;
-   - При наведении кнопки слегка увеличиваются и свечения усиливаются;
-   - Логотип и заголовок остаются “в центре” и подхватывают переменные Jinja2.
-   ======================================================================== */
-
-/* Подключаем шрифт Roboto (можно убрать, если это не нужно) */
+/*=============================================================================
+  Общие настройки и сбросы
+=============================================================================*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 html, body {
-  height: 100%;
-  background-color: #121212; /* тёмный фон */
-  color: #e0e0e0;            /* светло-серый текст */
   font-family: 'Roboto', sans-serif;
+  height: 100%;
+  width: 100%;
 }
 
-/* Сбрасываем облака (если они есть в HTML) – скрываем */
-.cloud {
-  display: none;
-}
-
-/* Центрируем содержимое по вертикали/горизонтали */
-body {
+/*=============================================================================
+  СТИЛИ ДЛЯ index.html
+=============================================================================*/
+.index-body {
+  background-color: #f5f5f5; /* светлый фон для страницы-заглушки */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Контейнер с логотипом, заголовком и кнопками */
-.container {
-  text-align: center;
-  max-width: 400px;
+.index-container {
+  background: #ffffff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  max-width: 380px;
   width: 90%;
-  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-/* -------------- СТИЛИЗАЦИЯ ЛОГОТИПА И ЗАГОЛОВКА -------------- */
-.logo {
+.index-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.index-title {
+  font-size: 2em;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+.index-subtitle {
+  font-size: 1em;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+.index-arrow {
+  font-size: 1.5em;
+  color: #777777;
+  margin-bottom: 18px;
+  animation: arrow-bounce 1.5s infinite ease-in-out;
+}
+
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 1.05em;
+  color: #1976d2;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.contact-link:hover {
+  color: #0d47a1;
+}
+
+.footer-note {
+  font-size: 0.85em;
+  color: #888888;
+  margin: 12px 0 25px;
+}
+
+.early-title {
+  font-size: 1.3em;
+  color: #222222;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.invite-form {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.invite-input {
+  padding: 10px 12px;
+  font-size: 1em;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  width: 180px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.invite-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 5px rgba(25, 118, 210, 0.4);
+}
+
+.invite-button {
+  padding: 10px 18px;
+  font-size: 1em;
+  background-color: #1976d2;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.invite-button:hover {
+  background-color: #0d47a1;
+  transform: translateY(-2px);
+}
+
+/*=============================================================================
+  СТИЛИ ДЛЯ link_page.html (мультиссылки)
+=============================================================================*/
+body {
+  background-color: #121212; /* тёмный фон */
+  color: #e0e0e0;
+}
+
+/* Контейнер для страницы с мультиссылками */
+.linkpage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 15px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Заголовок и логотип */
+.linkpage-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.linkpage-header .logo {
   width: 100px;
   height: auto;
   border-radius: 50%;
@@ -55,7 +164,7 @@ body {
   object-fit: cover;
 }
 
-header h1 {
+.linkpage-header h1 {
   font-size: 2.2em;
   font-weight: 700;
   color: #ffffff;
@@ -63,7 +172,7 @@ header h1 {
   text-transform: uppercase;
 }
 
-header p {
+.linkpage-header p {
   font-size: 0.9em;
   font-weight: 500;
   color: #cccccc;
@@ -72,21 +181,13 @@ header p {
   letter-spacing: 0.5px;
 }
 
-.arrow-down {
+.linkpage-header .arrow-down {
   font-size: 1.8em;
   color: #00c8ff;
-  margin-top: 10px;
   animation: arrow-bounce 1.5s infinite ease-in-out;
 }
 
-/* Анимация для стрелки вниз */
-@keyframes arrow-bounce {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(8px); }
-}
-
-/* -------------- СТИЛИЗАЦИЯ КНОПОК -------------- */
-/* Общие стили для всех кнопок */
+/* Кнопки – общие стили */
 .link-button {
   position: relative;
   display: flex;
@@ -98,18 +199,17 @@ header p {
   font-size: 1.1em;
   font-weight: 700;
   padding: 15px 25px;
-  margin: 20px 0;
+  margin: 15px 0;
   border-radius: 30px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-  /* Пульсирующее голубое свечение */
   box-shadow: 0 0 8px rgba(0, 200, 255, 0.5);
   animation: glow 2s infinite ease-in-out;
   width: 100%;
   max-width: 300px;
 }
 
-/* Значок внутри кнопки (логотип бота) */
+/* Иконка внутри кнопки (логотип бота) */
 .link-button .btn-icon {
   width: 40px;
   height: 40px;
@@ -133,21 +233,21 @@ header p {
   flex-shrink: 0;
 }
 
-/* При наведении – увеличиваем и усиливаем свечения */
+/* Hover-эффекты для кнопок */
 .link-button:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(0, 200, 255, 0.9);
   background-color: #2a2a2a;
 }
 
-/* Анимация “пульсации” для всех кнопок */
+/* Анимация «пульсации» свечения у всех кнопок */
 @keyframes glow {
   0%   { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
   50%  { box-shadow: 0 0 16px rgba(0, 200, 255, 0.8); }
   100% { box-shadow: 0 0 8px rgba(0, 200, 255, 0.5); }
 }
 
-/* Специальный “блик” для первой кнопки (Основной бот) */
+/* Блик на первой кнопке (Основной бот) */
 .link-button:nth-of-type(1)::before {
   content: '';
   position: absolute;
@@ -169,8 +269,31 @@ header p {
   100% { left: 150%; }
 }
 
-/* Скрываем фоновые изображения (облака) в малых разрешениях, если вдруг появились */
+/*=============================================================================
+  Адаптивность
+=============================================================================*/
 @media (max-width: 480px) {
+  /* Подгоняем стили для index.html */
+  .index-container {
+    padding: 20px 15px;
+  }
+  .index-title {
+    font-size: 1.8em;
+  }
+  .invite-input {
+    width: 140px;
+  }
+  .invite-button {
+    padding: 8px 14px;
+  }
+
+  /* Подгоняем стили для link_page.html */
+  .linkpage-container {
+    padding: 15px 10px;
+  }
+  .linkpage-header h1 {
+    font-size: 2em;
+  }
   .link-button {
     font-size: 1em;
     padding: 12px 20px;
@@ -178,12 +301,6 @@ header p {
   .link-button .btn-icon {
     width: 32px;
     height: 32px;
-    margin-right: 10px;
-  }
-  header h1 {
-    font-size: 1.8em;
-  }
-  header p {
-    font-size: 0.8em;
+    margin-right: 8px;
   }
 }
